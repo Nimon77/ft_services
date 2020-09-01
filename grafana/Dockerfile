@@ -8,6 +8,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 
 COPY telegraf.conf /root/.telegraf/telegraf.conf
 COPY start.sh /start.sh
+# TODO : grafana config file
 
 EXPOSE 3000
 
