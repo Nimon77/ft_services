@@ -21,7 +21,18 @@ spec:
         - containerPort: 5050
           name: http
           protocol: TCP
-        resources:
-          limits:
-            memory: "500Mi"
-            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-svc
+  labels:
+    app: wordpress
+spec:
+  selector:
+    app: wordpress
+  type: LoadBalancer
+  ports:
+  - port: 5050
+    name: http
+    targetPort: 5050

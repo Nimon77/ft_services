@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grafana-deployment
+  name: influxdb-deployment
   labels:
-    app: grafana
+    app: influxdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grafana
+      app: influxdb
   template:
     metadata:
       labels:
-        app: grafana
+        app: influxdb
     spec:
       containers:
-      - name: grafana
-        image: grafana:42
+      - name: influxdb
+        image: influxdb:42
         ports:
-        - containerPort: 3000
+        - containerPort: 8086
           name: http
           protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: grafana-svc
+  name: influxdb-svc
   labels:
-    app: grafana
+    app: influxdb
 spec:
   selector:
-    app: grafana
-  type: LoadBalancer
+    app: influxdb
+  type: ClusterIP
   ports:
-  - port: 3000
-    name: http
-    targetPort: 3000
+  - protocol: TCP
+    port: 8086
+    targetPort: 8086
