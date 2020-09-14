@@ -10,7 +10,7 @@ fi
 status=`minikube status | grep "host" | sed "s/host: //g" | tr -d "\n"`
 if [[ $status == "Stopped" || $status == "" ]]
 then
-	minikube start --driver=virtualbox --cpus=8
+	minikube start --driver=virtualbox --cpus=8 --memory=8G
 	minikube -p minikube docker-env
 	eval $(minikube -p minikube docker-env)
 fi
@@ -40,6 +40,10 @@ echo -e "\033[47m\033[32m grafana image build \033[m"
 docker build -t grafana:42 grafana/
 echo -e "\033[47m\033[32m wordpress image build \033[m"
 docker build -t wordpress:42 wordpress/
+echo -e "\033[47m\033[32m mysql image build \033[m"
+docker build -t mysql:42 mysql/
+echo -e "\033[47m\033[32m phpmyadmin image build \033[m"
+docker build -t phpmyadmin:42 phpmyadmin/
 
 kubectl create configmap default-nginx-config --from-file=nginx/website.conf
 
@@ -51,3 +55,7 @@ echo -e "\033[47m\033[32m grafana deployment \033[m"
 kubectl apply -f grafana-deployment.yaml
 echo -e "\033[47m\033[32m wordpress deployment \033[m"
 kubectl apply -f wordpress-deployment.yaml
+echo -e "\033[47m\033[32m mysql deployment \033[m"
+kubectl apply -f mysql-deployment.yaml
+echo -e "\033[47m\033[32m phpmyadmin deployment \033[m"
+kubectl apply -f phpmyadmin-deployment.yaml
