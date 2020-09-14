@@ -25,6 +25,10 @@ spec:
         - containerPort: 443
           name: https
           protocol: TCP
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
         volumeMounts:
           - name: config
             mountPath: /etc/nginx/conf.d/

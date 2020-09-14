@@ -10,7 +10,7 @@ fi
 status=`minikube status | grep "host" | sed "s/host: //g" | tr -d "\n"`
 if [[ $status == "Stopped" || $status == "" ]]
 then
-	minikube start --driver=virtualbox
+	minikube start --driver=virtualbox --cpus=8
 	minikube -p minikube docker-env
 	eval $(minikube -p minikube docker-env)
 fi
@@ -27,7 +27,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manife
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 kubectl apply -f metallb/metallb-config.yaml
 
-#eval $(minikube docker-env)
+eval $(minikube docker-env)
 
 #minikube addons enable metallb
 minikube ip
