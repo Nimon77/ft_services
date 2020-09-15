@@ -59,3 +59,5 @@ echo -e "\033[47m\033[32m mysql deployment \033[m"
 kubectl apply -f mysql-deployment.yaml
 echo -e "\033[47m\033[32m phpmyadmin deployment \033[m"
 kubectl apply -f phpmyadmin-deployment.yaml
+
+minikube dashboard &

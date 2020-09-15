@@ -9,6 +9,7 @@ RUN	wget https://wordpress.org/latest.tar.gz; \
 	tar -xzvf latest.tar.gz -C /var/www; \
 	rm latest.tar.gz
 
+COPY wp-config.php /var/www/wordpress/wp-config.php
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
