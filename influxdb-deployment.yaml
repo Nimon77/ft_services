@@ -25,6 +25,21 @@ spec:
           limits:
             memory: "500Mi"
             cpu: "500m"
+        volumeMounts:
+          - name: dockersock
+            mountPath: "/var/run/docker.sock"
+          - name: influxdb-config
+            subPath: influxdb.conf
+            mountPath: /etc/influxdb/influxdb.conf
+            readOnly: true
+      volumes:
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+        - name: influxdb-config
+          configMap:
+            name: influxdb-config
 ---
 apiVersion: v1
 kind: Service

@@ -2,7 +2,7 @@ FROM alpine
 
 RUN	echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
 	apk update; \
-	apk add --no-cache nginx php7 php7-fpm php7-opcache php7-common php7-mysqli php7-json telegraf supervisor; \
+	apk add --no-cache nginx php7 php7-fpm php7-opcache php7-common php7-mysqli php7-json supervisor; \
 	rm /etc/nginx/conf.d/default.conf
 
 RUN	wget https://wordpress.org/latest.tar.gz; \

@@ -31,6 +31,7 @@ eval $(minikube docker-env)
 
 #minikube addons enable metallb
 minikube ip
+minikube dashboard &
 
 echo -e "\033[47m\033[32m nginx image build \033[m"
 docker build -t nginx:42 nginx/
@@ -46,6 +47,8 @@ echo -e "\033[47m\033[32m phpmyadmin image build \033[m"
 docker build -t phpmyadmin:42 phpmyadmin/
 
 kubectl create configmap default-nginx-config --from-file=nginx/website.conf
+kubectl create configmap grafana-dashboards --from-file=grafana/dashboards/
+kubectl apply -f influxdb/influxdb-config.yaml
 
 echo -e "\033[47m\033[32m nginx deployment \033[m"
 kubectl apply -f nginx-deployment.yaml
@@ -59,5 +62,3 @@ echo -e "\033[47m\033[32m mysql deployment \033[m"
 kubectl apply -f mysql-deployment.yaml
 echo -e "\033[47m\033[32m phpmyadmin deployment \033[m"
 kubectl apply -f phpmyadmin-deployment.yaml
-
-minikube dashboard &

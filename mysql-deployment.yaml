@@ -42,6 +42,10 @@ spec:
           - mountPath: /data
             name: mysql-data
             subPath: mysql
+        lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "/setup_database.sh"]
       volumes:
         - name: mysql-data
           persistentVolumeClaim:

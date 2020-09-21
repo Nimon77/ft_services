@@ -2,7 +2,7 @@ FROM alpine
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
 	apk update; \
-	apk add --no-cache nginx openssl php7-fpm php7-common telegraf supervisor; \
+	apk add --no-cache nginx openssl php7-fpm php7-common supervisor; \
 	rm /etc/nginx/conf.d/default.conf
 
 WORKDIR /etc/nginx

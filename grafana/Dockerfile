@@ -5,6 +5,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 	apk add --no-cache grafana supervisor
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./provisioning /usr/share/grafana/conf/provisioning
 
 EXPOSE 3000
 
