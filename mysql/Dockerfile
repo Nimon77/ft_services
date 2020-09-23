@@ -23,6 +23,3 @@ RUN sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb
 EXPOSE 3306
 
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-#ENTRYPOINT [ "sh" ]
-
-#TODO: add commande to exec mysql_install_db and setup_database.sh at startup if no database setup

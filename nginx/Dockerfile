@@ -14,7 +14,7 @@ RUN mkdir ssl; \
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/www/index.html
+COPY index.php /var/www/index.php
 
 EXPOSE 80
 EXPOSE 443

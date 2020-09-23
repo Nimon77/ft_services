@@ -8,5 +8,4 @@ kubectl delete --all pv,pvc
 kubectl delete --all pod
 docker rmi -f $(docker images -q)
 minikube delete
-docker rmi -f $(docker images -q)
 #rm -rf ~/.minikube

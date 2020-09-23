@@ -33,32 +33,37 @@ eval $(minikube docker-env)
 minikube ip
 minikube dashboard &
 
-echo -e "\033[47m\033[32m nginx image build \033[m"
-docker build -t nginx:42 nginx/
+echo -e "\033[47m\033[32m mysql image build \033[m"
+docker build -t mysql:42 mysql/
 echo -e "\033[47m\033[32m influxdb image build \033[m"
 docker build -t influxdb:42 influxdb/
+echo -e "\033[47m\033[32m nginx image build \033[m"
+docker build -t nginx:42 nginx/
 echo -e "\033[47m\033[32m grafana image build \033[m"
 docker build -t grafana:42 grafana/
 echo -e "\033[47m\033[32m wordpress image build \033[m"
 docker build -t wordpress:42 wordpress/
-echo -e "\033[47m\033[32m mysql image build \033[m"
-docker build -t mysql:42 mysql/
 echo -e "\033[47m\033[32m phpmyadmin image build \033[m"
 docker build -t phpmyadmin:42 phpmyadmin/
+echo -e "\033[47m\033[32m ftps image build \033[m"
+docker build -t ftps:42 ftps/
 
 kubectl create configmap default-nginx-config --from-file=nginx/website.conf
 kubectl create configmap grafana-dashboards --from-file=grafana/dashboards/
+kubectl create configmap ftps-config --from-file=ftps/vsftpd.conf
 kubectl apply -f influxdb/influxdb-config.yaml
 
-echo -e "\033[47m\033[32m nginx deployment \033[m"
-kubectl apply -f nginx-deployment.yaml
+echo -e "\033[47m\033[32m mysql deployment \033[m"
+kubectl apply -f mysql-deployment.yaml
 echo -e "\033[47m\033[32m influxdb deployment \033[m"
 kubectl apply -f influxdb-deployment.yaml
+echo -e "\033[47m\033[32m nginx deployment \033[m"
+kubectl apply -f nginx-deployment.yaml
 echo -e "\033[47m\033[32m grafana deployment \033[m"
 kubectl apply -f grafana-deployment.yaml
 echo -e "\033[47m\033[32m wordpress deployment \033[m"
 kubectl apply -f wordpress-deployment.yaml
-echo -e "\033[47m\033[32m mysql deployment \033[m"
-kubectl apply -f mysql-deployment.yaml
 echo -e "\033[47m\033[32m phpmyadmin deployment \033[m"
 kubectl apply -f phpmyadmin-deployment.yaml
+echo -e "\033[47m\033[32m ftps deployment \033[m"
+kubectl apply -f ftps-deployment.yaml
