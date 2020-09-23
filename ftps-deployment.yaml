@@ -28,8 +28,17 @@ spec:
       - name: ftps
         image: ftps:42
         ports:
-        - containerPort: 5050
-          name: http
+        - containerPort: 20
+          name: ftp-connection
+          protocol: TCP
+        - containerPort: 21
+          name: ftp-data
+          protocol: TCP
+        - containerPort: 20000
+          name: pftp-data-0
+          protocol: TCP
+        - containerPort: 20001
+          name: pftp-data-1
           protocol: TCP
         env:
         - name: USERNAME

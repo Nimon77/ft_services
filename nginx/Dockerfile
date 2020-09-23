@@ -2,21 +2,19 @@ FROM alpine
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
 	apk update; \
-	apk add --no-cache nginx openssl php7-fpm php7-common supervisor; \
+	apk add --no-cache openssh nginx openssl php7-fpm php7-common supervisor; \
 	rm /etc/nginx/conf.d/default.conf
 
 WORKDIR /etc/nginx
 RUN mkdir ssl; \
-	cd ssl; \
-	openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 \
-	-keyout privateKey.key -out certificate.crt -nodes \
-	-subj '/C=FR/L=Paris/O=42 Network/OU=nsimon/CN=127.0.0.1/emailAddress=nsimon@student.42.fr'
+	ssh-keygen -A
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY sshd_config /etc/ssh/sshd_config
+COPY start.sh /start.sh
 COPY index.php /var/www/index.php
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443 22
 
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["/bin/sh", "/start.sh"]
