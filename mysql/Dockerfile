@@ -12,6 +12,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY setup_database.sh /
 COPY create_tables.sql /
+COPY wordpress.sql /
 COPY my.cnf /etc/mysql/my.cnf
 
 RUN touch /var/log/mysqld.log; chown mysql:mysql /var/log/mysqld.log;

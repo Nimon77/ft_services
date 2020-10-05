@@ -17,5 +17,6 @@ then
 	echo "FLUSH PRIVILEGES;" | mysql -u root;
 	echo "CREATE DATABASE wordpress;" | mysql -u root
 	mysql -u root < create_tables.sql
+	mysql -u root -b wordpress < wordpress.sql
 	#echo "CREATE USER 'pma'@'%' IDENTIFIED BY 'pmapass'; GRANT SELECT, INSERT, UPDATE, DELETE ON phpmyadmin.* TO 'pma'@'%';" | mysql -u root
 fi
