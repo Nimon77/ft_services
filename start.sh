@@ -10,7 +10,9 @@ fi
 status=`minikube status | grep "host" | sed "s/host: //g" | tr -d "\n"`
 if [[ $status == "Stopped" || $status == "" ]]
 then
-	minikube start --driver=virtualbox --cpus=8 --memory=8G
+	minikube start --driver=virtualbox --cpus=4 --memory=4G
+	#minikube start --driver=virtualbox --cpus=8 --memory=8G
+	#minikube start --driver=docker
 	minikube -p minikube docker-env
 	eval $(minikube -p minikube docker-env)
 fi

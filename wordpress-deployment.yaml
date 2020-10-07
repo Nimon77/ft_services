@@ -22,8 +22,11 @@ spec:
           name: http
           protocol: TCP
         resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
           limits:
-            memory: "500Mi"
+            memory: "128Mi"
             cpu: "500m"
 ---
 apiVersion: v1
