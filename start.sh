@@ -7,14 +7,23 @@ then
     exit 1
 fi
 
+uname=`uname -s`
+
 status=`minikube status | grep "host" | sed "s/host: //g" | tr -d "\n"`
 if [[ $status == "Stopped" || $status == "" ]]
 then
-	minikube start --driver=virtualbox --cpus=4 --memory=4G
-	#minikube start --driver=virtualbox --cpus=8 --memory=8G
-	#minikube start --driver=docker
+	if [[ $uname == "Darwin"* ]]; then
+		minikube start --driver=virtualbox --cpus=4 --memory=4G
+	elif [[ $uname == "Linux"* ]]; then
+		minikube start --driver=docker
+	fi
 	minikube -p minikube docker-env
 	eval $(minikube -p minikube docker-env)
+fi
+
+if [[ $uname == "Linux"* ]]; then
+	sed -i "" 's/192.168.99.50/172.17.0.50/g' ./*-deployment.yaml
+	sed -i "" 's/192.168.99.50-192.168.99.50/172.17.0.50-172.17.0.50/g' ./metallb/metallb-config.yaml
 fi
 
 echo "metallb"
