@@ -35,6 +35,8 @@ metadata:
   name: wordpress-svc
   labels:
     app: wordpress
+  annotations:
+      metallb.universe.tf/allow-shared-ip: "true"
 spec:
   selector:
     app: wordpress
@@ -43,3 +45,4 @@ spec:
   - port: 5050
     name: http
     targetPort: 5050
+  loadBalancerIP: 192.168.99.50

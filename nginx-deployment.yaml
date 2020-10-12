@@ -68,6 +68,8 @@ metadata:
   name: nginx-svc
   labels:
     app: nginx
+  annotations:
+      metallb.universe.tf/allow-shared-ip: "true"
 spec:
   selector:
     app: nginx
@@ -82,3 +84,4 @@ spec:
   - port: 22
     name: ssh
     targetPort: 22
+  loadBalancerIP: 192.168.99.50
