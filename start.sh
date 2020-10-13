@@ -22,8 +22,8 @@ then
 fi
 
 if [[ $uname == "Linux"* ]]; then
-	sed -i "" 's/192.168.99.50/172.17.0.50/g' ./*-deployment.yaml
-	sed -i "" 's/192.168.99.50-192.168.99.50/172.17.0.50-172.17.0.50/g' ./metallb/metallb-config.yaml
+	sed -i 's/192.168.99.50/172.17.0.50/g' ./*-deployment.yaml
+	sed -i 's/192.168.99.50-192.168.99.50/172.17.0.50-172.17.0.50/g' ./metallb/metallb-config.yaml
 fi
 
 echo "metallb"
