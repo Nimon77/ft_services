@@ -21,9 +21,11 @@ then
 	eval $(minikube -p minikube docker-env)
 fi
 
+IP=`minikube ip | rev | cut -c3- | rev`
+
 if [[ $uname == "Linux"* ]]; then
-	sed -i 's/192.168.99.50/172.17.0.50/g' ./*-deployment.yaml
-	sed -i 's/192.168.99.50-192.168.99.50/172.17.0.50-172.17.0.50/g' ./metallb/metallb-config.yaml
+	sed -i "s/loadBalancerIP: .*$/loadBalancerIP: $IP.50/g" ./*-deployment.yaml
+	sed -i "12s/- .*$/- $IP.50-$IP.50/g" metallb/metallb-config.yaml
 fi
 
 echo "metallb"
