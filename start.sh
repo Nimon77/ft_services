@@ -23,14 +23,14 @@ fi
 
 if [[ $uname == "Linux"* ]]; then
 	IP=`minikube ip | rev | cut -c3- | rev`
-	sed -i "s/WORDPRESS_IP=.*$/WORDPRESS_IP=$IP.50/g" ./nginx-deployment.yaml
+	sed -i "s/value: .*\.50/value: $IP.50/g" ./nginx-deployment.yaml
 	sed -i "s/PMA_IP=.*$/PMA_IP=$IP.50/g" ./phpmyadmin-deployment.yaml
 	sed -i "s/loadBalancerIP: .*$/loadBalancerIP: $IP.50/g" ./*-deployment.yaml
 	sed -i "12s/- .*$/- $IP.50-$IP.50/g" ./metallb/metallb-config.yaml
 	sed -i "s/192.168.99.50/$IP.50/g" ./mysql/wordpress.sql
 elif [[ $uname == "Darwin"* ]]; then
 	IP=`minikube ip | rev | cut -c5- | rev`
-	sed -i "" "s/WORDPRESS_IP=.*$/WORDPRESS_IP=$IP.50/g" ./nginx-deployment.yaml
+	sed -i "" "s/value: .*\.50/value: $IP.50/g" ./nginx-deployment.yaml
 	sed -i "" "s/PMA_IP=.*$/PMA_IP=$IP.50/g" ./phpmyadmin-deployment.yaml
 	sed -i "" "s/loadBalancerIP: .*$/loadBalancerIP: $IP.50/g" ./*-deployment.yaml
 	sed -i "" "12s/- .*$/- $IP.50-$IP.50/g" ./metallb/metallb-config.yaml
