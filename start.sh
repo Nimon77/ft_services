@@ -28,6 +28,7 @@ if [[ $uname == "Linux"* ]]; then
 	sed -i "s/loadBalancerIP: .*$/loadBalancerIP: $IP.50/g" ./*-deployment.yaml
 	sed -i "12s/- .*$/- $IP.50-$IP.50/g" ./metallb/metallb-config.yaml
 	sed -i "s/192.168.99.50/$IP.50/g" ./mysql/wordpress.sql
+	sed -i "s/pasv_address=.*$/pasv_address=$IP.50/g" ./ftps/vsftpd.conf
 elif [[ $uname == "Darwin"* ]]; then
 	IP=`minikube ip | rev | cut -c5- | rev`
 	sed -i "" "s/value: .*\.50/value: $IP.50/g" ./nginx-deployment.yaml
@@ -35,6 +36,7 @@ elif [[ $uname == "Darwin"* ]]; then
 	sed -i "" "s/loadBalancerIP: .*$/loadBalancerIP: $IP.50/g" ./*-deployment.yaml
 	sed -i "" "12s/- .*$/- $IP.50-$IP.50/g" ./metallb/metallb-config.yaml
 	sed -i "" "s/192.168.99.50/$IP.50/g" ./mysql/wordpress.sql
+	sed -i "" "s/pasv_address=.*$/pasv_address=$IP.50/g" ./ftps/vsftpd.conf
 fi
 
 echo "metallb"
