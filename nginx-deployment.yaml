@@ -41,6 +41,8 @@ spec:
           value: "nsimon"
         - name: SSH_PASSWORD
           value: "nsimon"
+        - name: WORDPRESS_IP
+          value: 192.168.99.50
         resources:
           requests:
             memory: "64Mi"
@@ -49,15 +51,9 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         volumeMounts:
-          - name: config
-            mountPath: /etc/nginx/conf.d/
-            readOnly: true
           - name: tls
             mountPath: /etc/nginx/ssl
       volumes:
-        - name: config
-          configMap:
-              name: default-nginx-config
         - name: tls
           secret:
             secretName: nginx.tls

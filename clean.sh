@@ -1,5 +1,6 @@
 #!/bin/bash
 
+eval $(minikube -p minikube docker-env)
 kubectl delete --all deployment
 kubectl delete --all services
 kubectl delete --all secret

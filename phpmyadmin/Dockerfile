@@ -19,7 +19,9 @@ RUN DATA="$(wget https://www.phpmyadmin.net/home_page/version.txt -q -O-)"; \
 
 RUN	echo "\$cfg['Servers'][\$i]['host'] = 'mysql-svc';" >> /usr/share/phpmyadmin/config.inc.php; \
 	echo "\$cfg['Servers'][\$i]['port'] = '3306';" >> /usr/share/phpmyadmin/config.inc.php; \
-	echo "\$cfg['Servers'][\$i]['auth_type'] = 'cookie';" >> /usr/share/phpmyadmin/config.inc.php
+	echo "\$cfg['Servers'][\$i]['auth_type'] = 'cookie';" >> /usr/share/phpmyadmin/config.inc.php; \
+	echo "\$IP = getenv('PMA_IP');" >> /usr/share/phpmyadmin/config.inc.php; \
+	echo "\$cfg['PmaAbsoluteUri'] = './';" >> /usr/share/phpmyadmin/config.inc.php
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
