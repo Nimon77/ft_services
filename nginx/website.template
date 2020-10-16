@@ -26,15 +26,13 @@ server {
 		return	307	http://${WORDPRESS_IP}:5050/;
 	}
 
-#	location /phpmyadmin {
-#		return	301	https://$host$request_uri/;
-#	}
+	location /phpmyadmin {
+		return	301	https://$host$request_uri/;
+	}
 	location ~ /phpmyadmin/ {
-		rewrite				^/phpmyadmin(/.*)$ $1 break; 
-#		proxy_set_header	X-Real-IP		$remote_addr;
-#		proxy_set_header	X-Forwarded-For	$remote_addr;
-		proxy_set_header	X-Forwarded-Proto https;
-		proxy_set_header	Host			$host;
+		rewrite				^/phpmyadmin(/.*)$ $1 break;
+		proxy_set_header	X-Forwarded-Proto	https;
+		proxy_set_header	Host	$host;
 		proxy_pass			http://phpmyadmin-svc:5000;
 		proxy_buffering		off;
 	}
